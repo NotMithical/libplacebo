@@ -804,10 +804,6 @@ void pl_color_space_nominal_luma_ex(const struct pl_nominal_luma_params *params)
     if ((max_luma && min_luma >= max_luma) || min_luma >= hdr_max)
         min_luma = max_luma = 0; // sanity
 
-    // PQ is always scaled down to absolute black, ignoring HDR metadata
-    if (csp->transfer == PL_COLOR_TRC_PQ)
-        min_luma = pl_hdr_rescale(PL_HDR_PQ, scaling, csp->hdr.min_pq_y);
-
     // Baseline/fallback metadata, inferred entirely from the colorspace
     // description and built-in default assumptions
     if (!max_luma) {
